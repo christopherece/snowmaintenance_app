@@ -1,0 +1,172 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- <style>
+    @keyframes pulse {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+</style> -->
+
+    
+
+<div class="flex items-center justify-center min-h-screen py-4 sm:py-0">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% include 'partials/_header.html' %}
+        <p></p>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                {% include 'partials/_alerts.html' %}    
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-md-6 mx-auto">
+                <form name="incidentSnowDown" id="incidentForm" action="{% url 'submitincident' %}" method="POST">
+                    {% csrf_token %}
+                    
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username: </label>
+                        <input type="text" name="caller_id" class="form-control" id="caller_id" aria-describedby="caller_idHelp"
+                            placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email: </label>
+                        <input type="text" name="email" class="form-control" id="email" aria-describedby="emailaddressHelp"
+                            placeholder="Enter Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" placeholder="Description"
+                            required>
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comments</label>
+                        <textarea class="form-control" name="comments" id="comments" placeholder="Comments">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Impact: </label>
+                        <select class="form-control" name="impact" id="type" required>
+                            <option value="4">1 - 4 Users</option>
+                            <option value="3">Multiple Users (5+)</option>
+                            <option value="2">Entire Department / Site</option>
+                            <option value="1">Entire Organization</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Urgency: </label>
+                        <select class="form-control" name="urgency" id="urgency" required>
+                            <option value="4">Impeding normal work</option>
+                            <option value="3">Preventing non-urgent work</option>
+                            <option value="2">Preventing urgent work</option>
+                            <option value="1">Blocking critical business</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="worknotes">Work Notes</label>
+                        <textarea class="form-control" name="worknotes" id="worknotes" placeholder="Worknotes" required>
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Assignment Group: </label>
+                        <select class="form-control" name="assignment_group" id="assignment_group" required>
+                            <option value="Business Systems Saas Practice">Business Systems Saas Practice</option>
+                            <option value="Business Systems Intelligent Automation">Business Systems Intelligent Automation</option>
+                            <option value="Business Systems Library">Business Systems Library</option>
+                            <option value="Business Systems Registration Approval">Business Systems Registration Approval</option>
+                            <option value="Business Systems Development">Business Systems Development</option>
+                            <option value="CISCO">CISCO</option>
+                            <option value="Forensics">Forensics</option>
+                            <option value="ICT Bussiness Partners">ICT Bussiness Partners</option>
+                            <option value="ICT Admin Team">ICT Admin Team</option>
+                            <option value="Info Apps EDRMS">Info Apps EDRMS</option>
+                            <option value="Info Apps Geospatial">Info Apps Geospatial</option>
+                            <option value="Info Apps Geospatial Product Development">Info Apps Geospatial Product Development</option>
+                            <option value="Info Apps Geospatial Platform & Support">Info Apps Geospatial Platform & Support</option>
+                            <option value="Info Apps Geospatial Solutions & Services">Info Apps Geospatial Solutions & Services</option>
+                            <option value="Info Apps Web Solutions">Info Apps Web Solutions</option>
+                            <option value="ICT SD Delivery">ICT SD Delivery</option>
+                            <option value="myAuckland Files">myAuckland Files</option>
+                            <option value="Ops Applications">Ops Applications</option>
+                            <option value="Ops Automation">Ops Automation</option>
+                            <option value="Ops Capacity Management">Ops Capacity Management</option>
+                            <option value="Ops Core Software BI">Ops Core Software BI</option>
+                            <option value="Ops Core Software EDRMS">Ops Core Software EDRMS</option>
+                            <option value="Ops Core Software GIS">Ops Core Software GIS</option>
+                            <option value="Ops Core Software Integration">Ops Core Software Integration</option>
+                            <option value=">Ops Core Software Web Solutions">Ops Core Software Web Solutions</option>
+                            <option value="Ops Core Software SAP">Ops Core Software SAP</option>
+                            <option value="Ops Data Platforms">Ops Data Platforms</option>
+                            <option value="Ops Networks">Ops Networks</option>
+                            <option value="Ops Platforms">Ops Platforms</option>
+                            <option value="Ops Platforms - ServiceNow">Ops Platforms - ServiceNow</option>
+                            <option value="Ops Security">Ops Security</option>
+                            <option value="Ops Software Asset Management">Ops Software Asset Management</option>
+                            <option value="Ops Consenting & Property Information">Ops Consenting & Property Information</option>
+                            <option value="SAP CRM">SAP CRM</option>
+                            <option value="Sap Development">Sap Development</option>
+                            <option value="SAP Logistics and HR">SAP Logistics and HR</option>
+                            <option value="SAP Rates, Property & Financ">SAP Rates, Property & Finance</option>
+                            <option value="Service Des">Service Desk</option>
+                            <option value="Service Device Managemen">Service Device Management</option>
+                            <option value="Service Request">Service Request</option>
+                            <option value="Service Site - Albany">Service Site - Albany</option>
+                            <option value="Service Site - Albert">Service Site - Albert</option>
+                            <option value="Service Site CBD - AUL">Service Site CBD - AUL</option>
+                            <option value="Service Site CBD - Other">Service Site CBD - Other</option>
+                            <option value="Service Site - East">Service Site - East</option>
+                            <option value="Service Site Panuku - Takapun">Service Site Panuku - Takapuna</option>
+                            <option value="Service Site Henderso">Service Site Henderson</option>
+                            <option value="Service Site Support">Service Site Support</option>
+                            <option value="Service Site TAU">Service Site TAU</option>
+                            <option value="Ops Core Software Integration">Ops Core Software Integration</option>
+
+
+                        </select>
+
+                        <div class="form-group">
+                            <label for="type">State: </label>
+                            <select class="form-control" name="state" id="state" required>
+                                <option value="1">New</option>
+                                <option value="2">In Progress</option>
+                                <option value="3">On Hold</option>
+                                <option value="6">Resolved</option>
+                                <option value="8">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary">Close</button>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        
+
+        {% include 'partials/_footer.html' %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}
