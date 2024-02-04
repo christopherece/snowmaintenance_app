@@ -1,0 +1,87 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    
+
+<div class="flex items-center justify-center min-h-screen py-4 sm:py-0">
+        {% include 'partials/_header.html' %}
+            <section style="padding: 0 15px;">
+                <div class="row">
+                <div class="col-md-6">
+                        <form action="{% url 'generate_csv' %}" method="GET" class="md-form md-outline input-with-post-icon datepicker" inline="true" target=_blank style="float: left;">
+                            {% csrf_token %}
+                            <label style="display:block">Pick a Date Range:</label>
+                            <input style="border-radius:5px; padding: 3px 5px; width: 190px" placeholder="Select Start Date" type="date" id="startDate" name="startDate" required>
+                            <input style="border-radius:5px; padding: 3px 5px; width: 190px" placeholder="Select End Date" type="date" id="endDate" name="endDate" required>
+                            <input type="submit" style="margin: 10px 0;" class="btn btn-rounded btn-info" value="Print Report">
+                        </form>
+                    </div>
+                </div>  
+            </section>
+            
+            <section id="posts">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                        <h4>List of Incident</h4>
+                        </div>
+                        <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Description</th>
+                            <th>Impact</th>
+                            <th>Urgency</th>
+                            <th>Worknotes</th>
+                            <th>State</th>
+                            <th>Assignment Group</th>
+                            <th>Action</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inc in incidents %}
+            
+                            <tr>
+                            <td>{{inc.caller_id}}</td>
+                            <td>{{inc.emailAdress}}</td>
+                            <td>{{inc.description}}</td>
+                            <td>{{inc.impact}}</td>
+                            <td>{{inc.urgency}}</td>
+                            <td>{{inc.worknotes}}</td>
+                            <td>{{inc.state}}</td>
+                            <td>{{inc.assignment_group}}</td>
+                            <td>
+                                <!-- <a class="btn btn-secondary" style="text-decoration: none; color: black;" href="#"  data-toggle="modal" data-target="#update_modal"
+                                    id="updateTicket" 
+                                > -->
+            
+                                <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-angle-double-right"></i> Update Ticket
+                                </a>
+                            </td>
+                            </tr>
+                            {% endfor %}
+            
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+        {% include 'partials/_footer.html' %}
+
+</div>
+
+
+{% endblock %}
+
+
