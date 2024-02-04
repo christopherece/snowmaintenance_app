@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mssql',
     'incidentdown.apps.IncidentdownConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,10 +77,21 @@ WSGI_APPLICATION = 'snowmaintenance.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default1': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'default': {
+        'ENGINE': 'mssql',
+        'NAME': 'snowmaintenance_db',
+        'USER': 'sa',
+        'PASSWORD': 'L0c@lH0$t@dm!n!@#4',
+        'HOST': '192.168.10.221',
+        'PORT':'1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        }
+    },
 }
 
 
